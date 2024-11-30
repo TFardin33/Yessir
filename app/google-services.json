@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "297514468978",
+    "project_id": "fardi7",
+    "storage_bucket": "fardi7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:297514468978:android:d1085e10cb0f51b3e7e4eb",
+        "android_client_info": {
+          "package_name": "com.example.yessir"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAf464usBR_-djRfR3eZ76xkQ4VQLv8ciM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
