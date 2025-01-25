@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -32,14 +34,27 @@ android {
 }
 
 dependencies {
+    // Firebase BOM for managed versions
+    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
 
-    implementation("com.google.firebase:firebase-auth:22.1.0")
+    // Firebase Libraries
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-database")
+    implementation("com.google.firebase:firebase-storage")
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("com.google.firebase:firebase-perf")
+    implementation("com.google.firebase:firebase-messaging")
+
+    // AndroidX and Other Libraries
     implementation("androidx.appcompat:appcompat:1.6.1")
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+
+    // Testing Libraries
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

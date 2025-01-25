@@ -10,18 +10,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class TeacherRegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth; // Firebase Authentication instance
+    private FirebaseFirestore firestore; // Firestore instance
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_register);
 
-        // Initialize FirebaseAuth
+        // Initialize FirebaseAuth, Firestore, and SQLite Helper
         firebaseAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
 
         // Views
         EditText etName = findViewById(R.id.et_name);
@@ -66,17 +72,14 @@ public class TeacherRegisterActivity extends AppCompatActivity {
                                                 if (emailTask.isSuccessful()) {
                                                     Toast.makeText(TeacherRegisterActivity.this, "Verification email sent. Please verify and log in.", Toast.LENGTH_SHORT).show();
 
-                                                    // Save user data in the local database
-                                                    DatabaseHelper dbHelper = new DatabaseHelper(TeacherRegisterActivity.this);
-                                                    boolean isInserted = dbHelper.insertTeacher(name, username, email, dob, password);
-                                                    if (isInserted) {
-                                                        // Navigate to Login Activity
-                                                        Intent intent = new Intent(TeacherRegisterActivity.this, LoginActivity.class);
-                                                        startActivity(intent);
-                                                        finish();
-                                                    } else {
-                                                        Toast.makeText(TeacherRegisterActivity.this, "Registration failed in local database", Toast.LENGTH_SHORT).show();
-                                                    }
+                                                    // Save user data in Firestore and SQLite
+                                                    saveTeacherDataToFirestore(name, username, email, dob);
+                                                    saveTeacherDataToSQLite(name, username, email, dob, password);
+
+                                                    // Navigate to Login Activity
+                                                    Intent intent = new Intent(TeacherRegisterActivity.this, LoginActivity.class);
+                                                    startActivity(intent);
+                                                    finish();
                                                 } else {
                                                     Toast.makeText(TeacherRegisterActivity.this, "Failed to send verification email", Toast.LENGTH_SHORT).show();
                                                 }
@@ -88,5 +91,30 @@ public class TeacherRegisterActivity extends AppCompatActivity {
                         });
             }
         });
+    }
+
+    private void saveTeacherDataToFirestore(String name, String username, String email, String dob) {
+        Map<String, Object> teacherData = new HashMap<>();
+        teacherData.put("name", name);
+        teacherData.put("username", username);
+        teacherData.put("email", email);
+        teacherData.put("dob", dob);
+
+        firestore.collection("teachers")
+                .add(teacherData)
+                .addOnSuccessListener(documentReference ->
+                        Toast.makeText(TeacherRegisterActivity.this, "Teacher data saved to Firestore successfully", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e ->
+                        Toast.makeText(TeacherRegisterActivity.this, "Failed to save teacher data to Firestore: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+    }
+
+    private void saveTeacherDataToSQLite(String name, String username, String email, String dob, String password) {
+        DatabaseHelper dbHelper = new DatabaseHelper(TeacherRegisterActivity.this);
+        boolean isInserted = dbHelper.insertTeacher(name, username, email, dob, password);
+        if (isInserted) {
+            Toast.makeText(this, "Teacher data saved to SQLite successfully", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Failed to save teacher data to SQLite", Toast.LENGTH_SHORT).show();
+        }
     }
 }
