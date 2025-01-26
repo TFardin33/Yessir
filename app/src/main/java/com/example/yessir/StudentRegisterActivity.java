@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class StudentRegisterActivity extends AppCompatActivity {
 
-    private FirebaseAuth firebaseAuth; // Firebase Authentication instance
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +33,13 @@ public class StudentRegisterActivity extends AppCompatActivity {
         Button btnLogin = findViewById(R.id.btn_login);
         Button btnRegister = findViewById(R.id.btn_register);
 
-        // Login button action
+
         btnLogin.setOnClickListener(view -> {
             Intent intent = new Intent(StudentRegisterActivity.this, LoginActivity.class);
             startActivity(intent);
         });
 
-        // Register button action
+
         btnRegister.setOnClickListener(view -> {
             String name = etName.getText().toString().trim();
             String username = etUsername.getText().toString().trim();

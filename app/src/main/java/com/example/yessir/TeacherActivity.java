@@ -21,17 +21,17 @@ public class TeacherActivity extends AppCompatActivity {
         Button btnActivity = findViewById(R.id.btn_other_activity);
 
         btnInsert.setOnClickListener(view -> {
-            Intent intent = new Intent(TeacherActivity.this, InsertStudentActivity.class);   //Assuming AdminHomeActivity is the activity after login as admin
+            Intent intent = new Intent(TeacherActivity.this, InsertStudentActivity.class);
             startActivity(intent);
 
         });
         btnDLT.setOnClickListener(view -> {
-            Intent intent = new Intent(TeacherActivity.this, DeleteStudentActivity.class);   //Assuming AdminHomeActivity is the activity after login as admin
+            Intent intent = new Intent(TeacherActivity.this, DeleteStudentActivity.class);
             startActivity(intent);
 
         });
         btnActivity.setOnClickListener(view -> {
-            Intent intent = new Intent(TeacherActivity.this, OtherActivity.class);   //Assuming AdminHomeActivity is the activity after login as admin
+            Intent intent = new Intent(TeacherActivity.this, OtherActivity.class);
             startActivity(intent);
 
         });

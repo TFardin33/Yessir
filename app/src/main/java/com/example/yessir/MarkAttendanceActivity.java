@@ -28,7 +28,7 @@ public class MarkAttendanceActivity extends AppCompatActivity {
         btnSaveAttendance = findViewById(R.id.btn_save_attendance);
         dbHelper = new DatabaseHelper(this);
 
-        students = dbHelper.getAllStudents(); // Method to get all students from the database
+        students = dbHelper.getAllStudents(); // Method get all students from database
         attendanceMap = new HashMap<>();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, students);

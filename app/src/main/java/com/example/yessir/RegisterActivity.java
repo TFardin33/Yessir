@@ -23,12 +23,12 @@ public class RegisterActivity extends AppCompatActivity {
         Button btnStudent = findViewById(R.id.btn_student);
 
         btnTeacher.setOnClickListener(view -> {
-            Intent intent = new Intent(RegisterActivity.this, TeacherRegisterActivity.class);   //Assuming AdminHomeActivity is the activity after login as admin
+            Intent intent = new Intent(RegisterActivity.this, TeacherRegisterActivity.class);   //Assuming AdminHomeActivity is the activity after login as teaher
             startActivity(intent);
 
         });
         btnStudent.setOnClickListener(view -> {
-            Intent intent = new Intent(RegisterActivity.this, StudentRegisterActivity.class);   //Assuming AdminHomeActivity is the activity after login as admin
+            Intent intent = new Intent(RegisterActivity.this, StudentRegisterActivity.class);   //Assuming AdminHomeActivity is the activity after login as student
             startActivity(intent);
         });
     }
